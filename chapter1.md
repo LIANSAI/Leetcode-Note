@@ -1,3 +1,6 @@
+
+---
+
 # Array-easy
 
 ---
@@ -22,7 +25,7 @@ class solution:
 
 ---
 
-566 Reshape the matrix 
+566 Reshape the matrix
 
 1.题目
 
@@ -130,9 +133,8 @@ class Solution:
         :type nums: List[int]
         :rtype: List[int]
         """
-        
+
         return [i for i in range(1,len(nums)+1) if i not in nums]
-                
 ```
 
 正解： set差集时间复杂度为O（len\(s\)\)
@@ -143,11 +145,11 @@ class Solution:
          :type nums: List[int]
          :rtype: List[int]
          """
-        
+
          return list(set(range(1,len(nums)+1))-set(nums))
 ```
 
-
+---
 
 
 
