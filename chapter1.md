@@ -22,7 +22,7 @@ class solution:
 
 ---
 
-562. Reshape the matrix 
+566 Reshape the matrix 
 
 1.题目
 
@@ -44,23 +44,22 @@ import numpy as np
             return np.reshape(nums,(r,c)).tolist()
         except:
             return nums
- 
 ```
 
- 2.收集A中的数据，在将其放进r\*c的矩阵中
+2.收集A中的数据，在将其放进r\*c的矩阵中
 
 ```
        def matrixResahpe(self,nums,r,c)：
            if len(nums)*len(nums[0])!= r*c: 
                return nums
-           
+
            vals=(val for row in nums for val in row) 
            return [[vals.next() for xc in xrange(c)] for xr in xrange(r)]     #Python 3.X版本xrange取消，range代替xrange
 ```
 
 ---
 
-485. Max Consecutive One
+485 Max Consecutive One
 
 1.题目
 
@@ -88,7 +87,7 @@ class Solution:
 
 ---
 
-695. Max area of Island
+695 Max area of Island
 
 1.题目
 
@@ -109,12 +108,46 @@ class Solution:
                 grid[i][j]=0  #探索过的地区设置为0 
                 return 1 + dfs[i-1,j] + dfs[i+1,j] + dfs[i,j-1] + dfs[i,j+1] #搜寻四个方位
             return 0 
-        
-        areas=[dfs(i,j) for i range(m) for j in range(n) if grid[i][j]
-        return max(areas) if areas else 0 
-            
-        
+
+        areas=[dfs(i,j) for i in range(m) for j in range(n) if grid[i][j]]
+        return max(areas) if areas else 0
 ```
+
+---
+
+448 Find All Numbers Disappeared in an Array
+
+1.题目
+
+2.解法
+
+错误答案，这实际上是O\(n^2）时间复杂度
+
+```
+class Solution:
+    def findDisappearedNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        
+        return [i for i in range(1,len(nums)+1) if i not in nums]
+                
+```
+
+正解： set差集时间复杂度为O（len\(s\)\)
+
+```
+    def findDisappearedNumbers(self, nums):
+         """
+         :type nums: List[int]
+         :rtype: List[int]
+         """
+        
+         return list(set(range(1,len(nums)+1))-set(nums))
+```
+
+
 
 
 
