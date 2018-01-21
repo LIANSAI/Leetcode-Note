@@ -1,6 +1,8 @@
-# Leetcode
+# Leetcode Study Note
 
-# Python
+---
+
+# Leetcode solution using python
 
 
 
