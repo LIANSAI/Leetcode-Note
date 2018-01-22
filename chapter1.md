@@ -151,5 +151,31 @@ class Solution:
 
 ---
 
+283. Mover Zeroes
 
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        zero = 0  #记录0的位置
+        for i in range(len(nums)):
+            if nums[i] != 0：
+                nums[i],nums[zero] = nums[zero], nums[i] #交换i，j的位置，即把非零元素排到前面，原位置变成0
+                zero += 1
+```
+
+---
+
+717 1-bit and 2-bit Characters
+
+1.题目
+
+2.解法
 
