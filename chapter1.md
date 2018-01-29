@@ -151,7 +151,7 @@ class Solution:
 
 ---
 
-283. Mover Zeroes
+283 Mover Zeroes
 
 1.题目
 
@@ -178,4 +178,79 @@ class Solution:
 1.题目
 
 2.解法
+
+```
+class Solution:
+    def isOneBitCharacter(self, bits):
+        """
+        :type bits: List[int]
+        :rtype: bool
+        """
+        if not bits: return False #bits 为空
+        
+        n=len(bits)
+        index=0
+        while index<n:
+            if index==n-1: return True #最后只剩一个0的时候一定是1 bit
+            if bits[index] = 1：
+                index += 2
+            else:
+                index += 1
+        return False
+```
+
+   
+
+---
+
+169 Majority Element
+
+1.题目
+
+2.解法
+
+2.1
+
+```
+class Solution:
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n=len(nums)
+        nums_set = set(nums)  #找出不重复元素
+        
+        for num in nums_set:
+            if nums.count(num)>n/2: 
+                return num
+                break
+```
+
+2.2
+
+O\(nlogn\)
+
+```
+return sorted(num)[len(num)/2]
+
+#NOTICE that the majority element always exist in the array,so that the middle always is the answer
+```
+
+2.3
+
+使用字典
+
+```
+def majorityElement(self, nums):
+    dic={}
+    for num in nums:
+        dic[num]=dic.get(num,0)+1 #使用字典count
+    for num in nums:
+        if dic[num]>n/2:
+            return num
+    
+```
+
+
 
