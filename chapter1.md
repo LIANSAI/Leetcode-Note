@@ -187,7 +187,7 @@ class Solution:
         :rtype: bool
         """
         if not bits: return False #bits 为空
-        
+
         n=len(bits)
         index=0
         while index<n:
@@ -198,8 +198,6 @@ class Solution:
                 index += 1
         return False
 ```
-
-   
 
 ---
 
@@ -220,7 +218,7 @@ class Solution:
         """
         n=len(nums)
         nums_set = set(nums)  #找出不重复元素
-        
+
         for num in nums_set:
             if nums.count(num)>n/2: 
                 return num
@@ -249,7 +247,32 @@ def majorityElement(self, nums):
     for num in nums:
         if dic[num]>n/2:
             return num
-    
+```
+
+---
+
+1 Two Sum
+
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d={}
+        
+        for i, n in enumerate(numbers):
+            m=target-n
+            if m in d:
+                return [d[m]+1,i+1]
+            else:
+                d[n] = i
 ```
 
 
