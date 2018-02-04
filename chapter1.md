@@ -271,13 +271,95 @@ class Solution:
 
         for i, n in enumerate(numbers):
             m=target-n
-            if m in d:
-                return [d[m],i]
+            if m in d:  # in 找的是key值在不在这个字典中
+                return [d[m],i] 
             else:
-                d[n] = i
+                d[n] = i  # n是key， i是value
+            
 ```
 
 ---
 
+26 Remove Duplicates from Sorted Array
 
+1.题目
+
+2.解法
+
+Two points 相当于是把不一样的元素置换到前面，length后面的元素可以忽略。
+
+```
+class Solution:
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        
+        newtail=0
+        
+        for i in range(1,len(nums)):
+            if nums[i]!=nums[newtail]:
+                newtail+=1
+                nums[newtail]=nums[i]
+        return newtail+1
+```
+
+---
+
+27. Remove Element 
+
+1.题目 
+
+2.解法
+
+Two points O\(n\) 和上一题类似，相当于把不等于val的数字置换到前面，以newtail修改前面的数字，这里的循环是从0开始而不是上一题的1，所以return的是newtail而不是newtail+1
+
+```
+class Solution:
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        
+        newtail=0
+        for i in range(0,len(nums)):
+            if nums[i] != val:
+                nums[newtail]=nums[i]
+                newtail+=1
+        return newtail
+```
+
+---
+
+35. Search insert Position
+
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        for i in range(0,len(nums)):
+            if nums[i] == target or nums[i]>target:
+                
+                return i
+        
+        return i+1
+                
+```
+
+---
 
