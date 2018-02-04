@@ -257,6 +257,8 @@ def majorityElement(self, nums):
 
 2.解法
 
+Hash Table
+
 ```
 class Solution:
     def twoSum(self, numbers, target):
@@ -266,14 +268,16 @@ class Solution:
         :rtype: List[int]
         """
         d={}
-        
+
         for i, n in enumerate(numbers):
             m=target-n
             if m in d:
-                return [d[m]+1,i+1]
+                return [d[m],i]
             else:
                 d[n] = i
 ```
+
+---
 
 
 
