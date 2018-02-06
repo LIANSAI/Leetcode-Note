@@ -518,13 +518,15 @@ class Solution:
         :type k: int
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        
+
         n=len(nums)
         nums[:]=nums[n-k:]+nums[:n-k]
-        
+
         这里不能写成 nums = nums[n-k:] + nums[:n-k] 
         因为 The previous one can truly change the value of old nums, but the following one just changes its reference to a new nums not the value of old nums.
 ```
 
 ---
+
+
 
