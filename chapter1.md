@@ -446,7 +446,7 @@ class Solution:
         :rtype: List[int]
         """
         row=[1]  #注意这里只有一重list
-        
+
         for i in range(rowIndex):
             row = [x+y for x,y in zip([0]+row, row+[0])]  #避免使用map
         return row
@@ -472,12 +472,12 @@ class Solution:
         if not prices:
             return 0
         maxpro=curpro=0
-        
+
         for i in range(len(prices)-1):
             dif = prices[i+1]-prices[i]
             curpro = max(dif+curpro,0)
             maxpro = max(curpro, maxpro)
-        
+
         return maxpro
 ```
 
@@ -498,8 +498,32 @@ class Solution:
         :type prices: List[int]
         :rtype: int
         """
-        
+
         return sum(max(prices[i + 1] - prices[i], 0) for i in range(len(prices)-1))
+```
+
+---
+
+189 Rotate array
+
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        
+        n=len(nums)
+        nums[:]=nums[n-k:]+nums[:n-k]
+        
+        这里不能写成 nums = nums[n-k:] + nums[:n-k] 
+        因为 The previous one can truly change the value of old nums, but the following one just changes its reference to a new nums not the value of old nums.
 ```
 
 ---
