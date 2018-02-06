@@ -308,7 +308,7 @@ class Solution:
 
 ---
 
-27 Remove Element 
+27 Remove Element
 
 1.题目
 
@@ -367,7 +367,7 @@ class Solution:
 
 2.解法
 
- 动态规划
+动态规划
 
 ```
 class Solution:
@@ -378,13 +378,13 @@ class Solution:
         """
         if not nums:
             return 0
-        
+
         cursum=maxsum=nums[0]
-        
+
         for num in nums[1:]:
             cursum=max(cursum+num,num)
             maxsum=max(maxsum, cursum)
-        
+
         return maxsum
 ```
 
@@ -405,8 +405,8 @@ class Solution:
         :type numRows: int
         :rtype: List[List[int]]
         """
-        
-            
+
+
         res = [[1]]
         for i in range(1, numRows):
             res.append([map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])])
@@ -422,12 +422,84 @@ class Solution:
         :type numRows: int
         :rtype: List[List[int]]
         """
-        
-            
+
+
         res = [[1]]
         for i in range(1, numRows):
             res.append([map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])])
         return res if numRows else[]
+```
+
+---
+
+119 Pascal's Tringle II
+
+1.题目
+
+2解法
+
+```
+class Solution:
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        row=[1]  #注意这里只有一重list
+        
+        for i in range(rowIndex):
+            row = [x+y for x,y in zip([0]+row, row+[0])]  #避免使用map
+        return row
+```
+
+---
+
+121 Best time to sell and buy
+
+1.题目
+
+2.解法
+
+动态规划  和maxsubarray类似，求一段子序列的最大值（时间变化相当于股票价格波动，反映在盈亏中），若收益变为负，则从0重新开始（相当于以新的时间点买入）
+
+```
+class Solution:
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        maxpro=curpro=0
+        
+        for i in range(len(prices)-1):
+            dif = prices[i+1]-prices[i]
+            curpro = max(dif+curpro,0)
+            maxpro = max(curpro, maxpro)
+        
+        return maxpro
+```
+
+---
+
+122 Best time to sell and buy II
+
+1.题目
+
+2.解法
+
+贪心算法  低买高卖
+
+```
+class Solution:
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        
+        return sum(max(prices[i + 1] - prices[i], 0) for i in range(len(prices)-1))
 ```
 
 ---
