@@ -528,5 +528,63 @@ class Solution:
 
 ---
 
-211 Contains Duplicate
+217 Contains Duplicate
+
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        res=set(nums)
+        
+        return False if len(res) == len(nums) else True
+```
+
+```
+class Solution(object):
+def containsDuplicate(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: bool
+    """
+    return len(nums) != len(set(nums))
+```
+
+---
+
+219 Contains Duplicate II
+
+1.题目
+
+2.解法
+
+哈希表
+
+```
+class Solution:
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        d={}
+        
+        for i, v in enumerate(nums):
+            if v in d and i-d[v] <= k:  #如果字典中已经有了v且key值差不超过k
+                return True
+        
+            d[v] = i
+        
+        return False
+            
+```
+
+
 
