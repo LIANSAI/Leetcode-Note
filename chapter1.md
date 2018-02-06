@@ -275,7 +275,6 @@ class Solution:
                 return [d[m],i] 
             else:
                 d[n] = i  # n是key， i是value
-            
 ```
 
 ---
@@ -297,9 +296,9 @@ class Solution:
         """
         if not nums:
             return 0
-        
+
         newtail=0
-        
+
         for i in range(1,len(nums)):
             if nums[i]!=nums[newtail]:
                 newtail+=1
@@ -309,9 +308,9 @@ class Solution:
 
 ---
 
-27. Remove Element 
+27 Remove Element 
 
-1.题目 
+1.题目
 
 2.解法
 
@@ -327,7 +326,7 @@ class Solution:
         """
         if not nums:
             return 0
-        
+
         newtail=0
         for i in range(0,len(nums)):
             if nums[i] != val:
@@ -338,7 +337,7 @@ class Solution:
 
 ---
 
-35. Search insert Position
+35 Search insert Position
 
 1.题目
 
@@ -354,11 +353,81 @@ class Solution:
         """
         for i in range(0,len(nums)):
             if nums[i] == target or nums[i]>target:
-                
+
                 return i
-        
+
         return i+1
-                
+```
+
+---
+
+53 Maximum subarray
+
+1.题目
+
+2.解法
+
+ 动态规划
+
+```
+class Solution:
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        
+        cursum=maxsum=nums[0]
+        
+        for num in nums[1:]:
+            cursum=max(cursum+num,num)
+            maxsum=max(maxsum, cursum)
+        
+        return maxsum
+```
+
+---
+
+118 Pascal's Triangle
+
+1.题目
+
+2.解法
+
+2.1
+
+```
+class Solution:
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        
+            
+        res = [[1]]
+        for i in range(1, numRows):
+            res.append([map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])])
+        return res if numRows else[]
+```
+
+2.2 leetcode 出现 map not implented
+
+```
+class Solution:
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        
+            
+        res = [[1]]
+        for i in range(1, numRows):
+            res.append([map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])])
+        return res if numRows else[]
 ```
 
 ---
