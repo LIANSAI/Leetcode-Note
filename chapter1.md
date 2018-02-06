@@ -542,7 +542,7 @@ class Solution:
         :rtype: bool
         """
         res=set(nums)
-        
+
         return False if len(res) == len(nums) else True
 ```
 
@@ -575,16 +575,80 @@ class Solution:
         :rtype: bool
         """
         d={}
-        
+
         for i, v in enumerate(nums):
             if v in d and i-d[v] <= k:  #如果字典中已经有了v且key值差不超过k
                 return True
-        
+
             d[v] = i
-        
+
         return False
-            
 ```
+
+---
+
+268 Missing number 
+
+1.题目
+
+2.解法
+
+sum方法 差额即为缺少的数
+
+```
+class Solution:
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return int((len(nums))/2*(len(nums)+1)-sum(nums))
+```
+
+---
+
+414 Third Maximum Number
+
+1.题目
+
+2.解法
+
+```
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        res=set(nums)
+        if len(res)<3:
+            return max(res)
+        else:
+            for i in range(0,2):   #移除第1大和第2大元素
+                res.remove(max(res))
+        
+        return max(res)
+```
+
+```
+class Solution(object):
+    def thirdMax(self, nums):
+        v = [float('-inf'), float('-inf'), float('-inf')]
+        for num in nums:
+            if num not in v:
+                if num > v[0]:   v = [num, v[0], v[1]]
+                elif num > v[1]: v = [v[0], num, v[1]]
+                elif num > v[2]: v = [v[0], v[1], num]
+        return max(nums) if float('-inf') in v else v[2]
+```
+
+---
+
+581 Shortest Unsorted Continuous Subarray
+
+1.题目
+
+2.解法
 
 
 
