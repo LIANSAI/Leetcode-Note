@@ -587,7 +587,7 @@ class Solution:
 
 ---
 
-268 Missing number 
+268 Missing number
 
 1.题目
 
@@ -613,20 +613,22 @@ class Solution:
 
 2.解法
 
+set找出非重复元素，之后逐一移除 第一大和第二大元素
+
 ```
     def thirdMax(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        
+
         res=set(nums)
         if len(res)<3:
             return max(res)
         else:
             for i in range(0,2):   #移除第1大和第2大元素
                 res.remove(max(res))
-        
+
         return max(res)
 ```
 
@@ -645,6 +647,93 @@ class Solution(object):
 ---
 
 581 Shortest Unsorted Continuous Subarray
+
+1.题目
+
+2.解法
+
+```
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        start, end = 0, len(nums) - 1
+        while start < len(nums) - 1 and nums[start] <= nums[start + 1]:
+            start += 1
+            
+        if start == len(nums) - 1:
+            return 0
+        
+        while end > 0 and nums[end] >= nums[end - 1]:
+            end -= 1
+            
+
+        vmin = min(nums[start:(end + 1)])
+        vmax = max(nums[start:(end + 1)])
+        
+        while start >= 0 and nums[start] > vmin:
+            start -= 1
+        while end <= len(nums) - 1 and nums[end] < vmax:
+            end += 1
+        return end - start - 1
+
+```
+
+---
+
+628 Maximum Product of Three numbers
+
+1.题目
+
+2.解法
+
+注意有负值存在，最大值有两种可能，一种是三个最大的正数，第二种是二个最小的负数加上一个最大的正数
+
+```
+class Solution:
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        
+        return max(nums[0]*nums[1]*nums[-1], nums[-1]*nums[-2]*nums[-3])
+```
+
+---
+
+643 Maximum Average Subarray
+
+1.题目
+
+2.解法
+
+初步思路为遍历，如果每一子序列用sum求解 时间复杂度为0\(n2\),所以我们采取另外一种方法：去掉最开始的加上新进来的 
+
+```
+class Solution:
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        
+        curave=maxave=sum(nums[:k])
+        
+        for i in range(len(nums)-k):  #如果k=len(nums)就会出现range（0）这时候for循环就不会执行，这是前面设置maxave的原因
+            curave = curave-nums[i]+nums[i+k]  逐步去掉最开始的加上新进来的 不用sum 降低时间复杂度 
+            maxave = max(maxave,curave)
+        
+        return maxave/k
+```
+
+---
+
+661 Image Smoother
 
 1.题目
 
