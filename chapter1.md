@@ -747,12 +747,12 @@ class Solution:
         :type M: List[List[int]]
         :rtype: List[List[int]]
         """
-           
+
         x_len=len(M)
         y_len=len(M[0]) if x_len else 0 
-        
+
         res=copy(M)
-        
+
         for x in range(x_len):
             for y in range(y_len):
                 neighbors=[
@@ -761,10 +761,84 @@ class Solution:
                     for _y in (y-1,y,y+1)
                     if 0<= _x < x_len and 0<=_y<y_len
                 ]
-        
+
                 res[x][y] = sum(neighbors)//len(neighbors)
-        
+
         return res
+```
+
+---
+
+665 Non decreasing array
+
+1.题目
+
+2.解法
+
+First, find a pair where the order is wrong. Then there are two possibilities, either the first in the pair can be modified or the second can be modified to create a valid sequence. We simply modify both of them and check for validity of the modified arrays by comparing with the array after sorting.
+
+I find this approach the easiest to reason about and understand.
+
+```
+class Solution(object):
+    def checkPossibility(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        one, two = nums[:], nums[:]
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                one[i] = nums[i + 1]
+                two[i + 1] = nums[i]
+                break
+        return one == sorted(one) or two == sorted(two)
+```
+
+---
+
+674 Longest Continuous Increasing array
+
+1.题目
+
+2.解法
+
+```
+class Solution:
+    def findLengthOfLCIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        
+        _max=0
+        _cur=0
+        
+        for i in range(len(nums)-1):
+            if nums[i+1]>nums[i]:
+                _cur+=1
+                _max=max(_max,_cur)
+
+            else:
+                _cur=0
+        
+        return _max+1
+```
+
+---
+
+697  Degree of  An Array
+
+1.题目
+
+2.解法
+
+python collections 高效计数模块
+
+```
+
 ```
 
 
