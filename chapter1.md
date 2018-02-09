@@ -662,23 +662,22 @@ class Solution(object):
         start, end = 0, len(nums) - 1
         while start < len(nums) - 1 and nums[start] <= nums[start + 1]:
             start += 1
-            
+
         if start == len(nums) - 1:
             return 0
-        
+
         while end > 0 and nums[end] >= nums[end - 1]:
             end -= 1
-            
+
 
         vmin = min(nums[start:(end + 1)])
         vmax = max(nums[start:(end + 1)])
-        
+
         while start >= 0 and nums[start] > vmin:
             start -= 1
         while end <= len(nums) - 1 and nums[end] < vmax:
             end += 1
         return end - start - 1
-
 ```
 
 ---
@@ -699,7 +698,7 @@ class Solution:
         :rtype: int
         """
         nums.sort()
-        
+
         return max(nums[0]*nums[1]*nums[-1], nums[-1]*nums[-2]*nums[-3])
 ```
 
@@ -711,7 +710,7 @@ class Solution:
 
 2.解法
 
-初步思路为遍历，如果每一子序列用sum求解 时间复杂度为0\(n2\),所以我们采取另外一种方法：去掉最开始的加上新进来的 
+初步思路为遍历，如果每一子序列用sum求解 时间复杂度为0\(n2\),所以我们采取另外一种方法：去掉最前段的数加上新进来的数
 
 ```
 class Solution:
@@ -721,13 +720,13 @@ class Solution:
         :type k: int
         :rtype: float
         """
-        
+
         curave=maxave=sum(nums[:k])
-        
+
         for i in range(len(nums)-k):  #如果k=len(nums)就会出现range（0）这时候for循环就不会执行，这是前面设置maxave的原因
             curave = curave-nums[i]+nums[i+k]  逐步去掉最开始的加上新进来的 不用sum 降低时间复杂度 
             maxave = max(maxave,curave)
-        
+
         return maxave/k
 ```
 
@@ -738,6 +737,35 @@ class Solution:
 1.题目
 
 2.解法
+
+```
+from copy import deepcopy as copy
+
+class Solution:
+    def imageSmoother(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+           
+        x_len=len(M)
+        y_len=len(M[0]) if x_len else 0 
+        
+        res=copy(M)
+        
+        for x in range(x_len):
+            for y in range(y_len):
+                neighbors=[
+                    M[_x][_y]
+                    for _x in (x-1,x,x+1)
+                    for _y in (y-1,y,y+1)
+                    if 0<= _x < x_len and 0<=_y<y_len
+                ]
+        
+                res[x][y] = sum(neighbors)//len(neighbors)
+        
+        return res
+```
 
 
 
