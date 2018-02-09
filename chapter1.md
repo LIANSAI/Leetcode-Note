@@ -812,10 +812,10 @@ class Solution:
         """
         if not nums:
             return 0
-        
+
         _max=0
         _cur=0
-        
+
         for i in range(len(nums)-1):
             if nums[i+1]>nums[i]:
                 _cur+=1
@@ -823,7 +823,7 @@ class Solution:
 
             else:
                 _cur=0
-        
+
         return _max+1
 ```
 
@@ -838,7 +838,138 @@ class Solution:
 python collections 高效计数模块
 
 ```
+import collections
 
+class Solution:
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        c=collections.Counter(nums)
+
+        first,last = {},{}
+        for i,v in enumerate(nums):
+            first.setdefault(v,i) #只保存第一次出现的值
+            last[v]=i 
+
+        degree=max(c.values())
+
+        return min(last[v]-first[v]+1 for v in c if c[v]==degree)
+```
+
+---
+
+724 Find Pivot Index
+
+1.题目
+
+2.解法
+
+观察数组，发现left的会每次加上当前索引的上一个数，而right会减掉当前索引数
+
+```
+class Solution:
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return -1
+
+        sum_left=0
+        sum_right=sum(nums[1:])
+        if sum_left==sum_right:
+            return 0
+
+
+        for i in range(1,len(nums)):
+
+            sum_left +=nums[i-1] 
+            sum_right-=nums[i]
+
+            if sum_left==sum_right:
+
+                return i
+                break
+
+        return -1
+```
+
+```
+class Solution(object):
+    def pivotIndex(self, nums):
+        # Time: O(n)
+        # Space: O(1)
+        left, right = 0, sum(nums)
+        for index, num in enumerate(nums):
+            right -= num
+            if left == right:
+                return index  
+            left += num         #left和num  在 判断语句一前一后巧妙表达了 上面的思想
+        return -1
+```
+
+---
+
+746  Min Cost Climbing Stairs
+
+1.题目
+
+2.解法
+
+动态规划
+
+---
+
+747 Largest Number at Least Twice of Others
+
+```
+class Solution:
+    def dominantIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        one=[0, 0]  #储存最大值和其index
+        two=[0, 0]  #储存第二大值和其index
+        
+        for index, num in enumerate(nums):
+            if num>one[0]:
+                two=[one[0],one[1]]         #这里注意必须先更新two ，如果先更one，那one two 的值就都一样了
+      
+
+                one=[num,index]
+            
+            elif num>two[0]:
+                two=[num,index]
+        
+        return one[1] if one[0]>=2*two[0] else -1
+```
+
+---
+
+766 Toeplite Matrix 
+
+思路为每条对角线上元素都应该是x+1, j+1。这里巧妙在我们不需要一次 把一整个对角列遍历完，而每一次只需要和其下一个数对比，只要有一个不相等，就可以 返回False
+
+```
+class Solution:
+    def isToeplitzMatrix(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: bool
+        """
+        
+        for x in range(len(matrix)-1):
+            for y in range(len(matrix[0])-1):
+                if matrix[x][y] != matrix[x+1][y+1]:
+                    return False
+        
+        return True
 ```
 
 
