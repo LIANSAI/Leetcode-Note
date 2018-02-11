@@ -202,7 +202,7 @@ class Solution:
 
 387 First  Unique Character in a String
 
-基本思路 先用字典统计出只出现一次的元素，再遍历string求第一个不重复元素220ms
+基本思路 先用字典统计出只出现一次的元素，再遍历string求第一个不重复元素
 
 ```
 class Solution:
@@ -212,10 +212,10 @@ class Solution:
         :rtype: int
         """
         dic={}
-        
+
         for _s in s:
             dic[_s]=dic.get(_s,0)+1
-        
+
         if 1 not in dic.values():
             return -1
         else:
@@ -234,11 +234,11 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        
+
         letters='abcdefghijklmnopqrstuvwxyz'
-        
+
         index = [s.index(l) for l in letters if s.count(l) ==1]  # s.index(l)只返回第一个字母出现的位置 
-        
+
         return min(index) if len(index)>0 else -1
 ```
 
@@ -247,6 +247,62 @@ class Solution:
 389 Find the difference
 
 Bit Manipulation
+
+```
+class Solution:
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        dic={}
+        
+        
+        for _s in s:
+            dic[_s]=dic.get(_s,0)+1
+        for _t in t:
+            dic[_t] = dic[_t]-1 if _t in dic and dic[_t]>0 else 1 #大于0是因为如果添加s中有的元素，就会减到0
+        
+        return min([k for k,v in dic.items() if v ==1])
+```
+
+下面这个方法和上面思路是一样的，两字典相减，最后随机添加的元素在字典中的value一定是1（其他是0），以更高效的collection实现
+
+```
+import collections
+
+class Solution:
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        return list((collections.Counter(t)-collections.Counter(s)))[0] #[0]和上面min的作用一样，把list元素转为string
+```
+
+---
+
+_**409 Longest  Palindrome**_
+
+回文的思路是  对于奇数元素，我们只能用其n-1的数量，除了1个奇数元素可以放到中间，所以解法为：
+
+```
+import collections
+
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        odds = sum(v&1 for v in collections.Counter(s).values()) #v&1是一种判断奇数偶数的方法 偶数得0 奇数得1 牵扯到二进制计算
+        
+        return len(s)-odds+bool(odds) #这里不能直接加1因为可能没有奇数
+```
+
+---
 
 
 
