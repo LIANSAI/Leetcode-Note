@@ -933,26 +933,26 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        
+
         one=[0, 0]  #储存最大值和其index
         two=[0, 0]  #储存第二大值和其index
-        
+
         for index, num in enumerate(nums):
             if num>one[0]:
                 two=[one[0],one[1]]         #这里注意必须先更新two ，如果先更one，那one two 的值就都一样了
-      
+
 
                 one=[num,index]
-            
+
             elif num>two[0]:
                 two=[num,index]
-        
+
         return one[1] if one[0]>=2*two[0] else -1
 ```
 
 ---
 
-766 Toeplite Matrix 
+766 Toeplite Matrix
 
 思路为每条对角线上元素都应该是x+1, j+1。这里巧妙在我们不需要一次 把一整个对角列遍历完，而每一次只需要和其下一个数对比，只要有一个不相等，就可以 返回False
 
@@ -963,12 +963,12 @@ class Solution:
         :type matrix: List[List[int]]
         :rtype: bool
         """
-        
+
         for x in range(len(matrix)-1):
             for y in range(len(matrix[0])-1):
                 if matrix[x][y] != matrix[x+1][y+1]:
                     return False
-        
+
         return True
 ```
 
