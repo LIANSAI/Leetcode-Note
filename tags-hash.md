@@ -257,13 +257,13 @@ class Solution:
         :rtype: str
         """
         dic={}
-        
-        
+
+
         for _s in s:
             dic[_s]=dic.get(_s,0)+1
         for _t in t:
             dic[_t] = dic[_t]-1 if _t in dic and dic[_t]>0 else 1 #大于0是因为如果添加s中有的元素，就会减到0
-        
+
         return min([k for k,v in dic.items() if v ==1])
 ```
 
@@ -298,11 +298,113 @@ class Solution:
         :rtype: int
         """
         odds = sum(v&1 for v in collections.Counter(s).values()) #v&1是一种判断奇数偶数的方法 偶数得0 奇数得1 牵扯到二进制计算
-        
+
         return len(s)-odds+bool(odds) #这里不能直接加1因为可能没有奇数
 ```
 
 ---
+
+438 Find All Anagrams in String
+
+```
+from collections import Counter
+
+class Solution:
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        sCounter = Counter(s[:len(p)-1])
+        pCounter = Counter(p)
+        res=[]
+
+        for i in range(len(p)-1,len(s)):    
+            sCounter[s[i]] += 1                 #通过去掉头部加上尾部的数据 避免重复生成字典，减小时间复杂度
+            if sCounter == pCounter:  
+                res.append(i-len(p)+1)
+
+            sCounter[s[i-len(p)+1]] -=1
+            if sCounter[s[i-len(p)+1]] == 0:
+                del sCounter[s[i-len(p)+1]]
+
+        return res
+```
+
+---
+
+447 Number of Boomerangs
+
+```
+class Solution:
+    def numberOfBoomerangs(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        res=0
+
+        for p in points:
+            camp={}
+            for q in points:
+                f=p[0]-q[0]
+                s=p[1]-q[1]
+
+                camp[f*f+s*s] = camp.get(f*f+s*s,0)+1
+
+            for c in camp:
+                res += camp[c]*(camp[c]-1)
+
+        return res
+```
+
+---
+
+463 Island Perimeter
+
+Since there are no lakes, every pair of neighbour cells with different values is part of the perimeter \(more precisely, the edge between them is\). So just count the differing pairs, both horizontally and vertically \(for the latter I simply transpose the grid\).
+
+对于operator.ne的解释：
+
+\[0\] + \[1,2,3,4,5,6,7,8\] = \[0,1,2,3,4,5,6,7,8\]
+
+\[1,2,3,4,5,6,7,8\] + \[0\] = \[1,2,3,4,5,6,7,8,0\]
+
+basically, operator.ne compares 1 with 0 and 2, and compares 2 with 1 and 3… It compares every element with its two neighbors.
+
+```
+class Solution:
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        
+        return sum(sum(map(operator.ne, [0] + row, row + [0]))
+               for row in grid + map(list, zip(*grid)))
+                    
+```
+
+---
+
+573 Distribute Candies
+
+让妹妹先拿糖果，每种拿一个
+
+```
+class Solution:
+    def distributeCandies(self, candies):
+        """
+        :type candies: List[int]
+        :rtype: int
+        """
+        
+        kind=len(set(candies))
+        num= len(candies)/2
+        
+        return int(min(kind,num))
+```
 
 
 
