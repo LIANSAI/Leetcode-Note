@@ -26,11 +26,11 @@ class Solution:
             else:
                 cur.next= l2
                 l2=l2.next
-            
+
             cur = cur.next
-        
+
         cur.next = l1 or l2 
-        
+
         return dummy.next #加next为了不包括0节点
 ```
 
@@ -55,9 +55,9 @@ class Solution:
         while current is not None:
             while current.next and current.next.val == current.val:
                 current.next = current.next.next
-            
+
             current=current.next
-        
+
         return head
 ```
 
@@ -81,15 +81,42 @@ class Solution(object):
         :rtype: bool
         """
         fast=slow=head
-        
+
         while fast and fast.next:
             slow=slow.next
             fast=fast.next.next
             if slow==fast:
                 return True
         return False
+```
+
+---
+
+160 Inserction of Two list
+
+```
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        
+
+        pa = headA # 2 pointers
+        pb = headB
+
+        while pa is not pb:
+            # if either pointer hits the end, switch head and continue the second traversal, 
+            # if not hit the end, just move on to next
+            pa = headB if pa is None else pa.next
+            pb = headA if pb is None else pb.next
+
+        return pa
         
 ```
 
-
+---
 
