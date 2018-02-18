@@ -103,7 +103,7 @@ class Solution(object):
 
 class Solution(object):
     def getIntersectionNode(self, headA, headB):
-        
+
 
         pa = headA # 2 pointers
         pb = headB
@@ -115,8 +115,37 @@ class Solution(object):
             pb = headA if pb is None else pb.next
 
         return pa
-        
 ```
 
 ---
+
+203 Remove elements from List
+
+```
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        head,head.next=ListNode(0),head  #可能会出现空集合【】
+        
+        cur=head   
+        while cur.next:
+            if cur.next.val == val:
+                cur.next=cur.next.next
+            
+            else: cur = cur.next
+        
+        return head.next
+```
+
+
 
