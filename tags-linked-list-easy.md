@@ -136,14 +136,14 @@ class Solution(object):
         :rtype: ListNode
         """
         head,head.next=ListNode(0),head  #可能会出现空集合【】
-        
+
         cur=head   
         while cur.next:
             if cur.next.val == val:
                 cur.next=cur.next.next
-            
+
             else: cur = cur.next
-        
+
         return head.next
 ```
 
